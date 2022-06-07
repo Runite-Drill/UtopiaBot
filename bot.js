@@ -42,13 +42,17 @@ for (const file of eventFiles) {
 
 const COMMAND_LIST = {
   "": (msg, args) => msg.channel.send(`Are you trying to summon me? Try typing "${BOT_PREFIX} help" for a list of commands.\n🎵 Happy listening!`),
-  "credits": (msg, args) => getBotCredits(msg, args),
   "help": (msg, args) => getHelpInfo(msg, args),
   "contact": (msg, args) => getComposerInfo(msg, args),
-  "invite": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
-  "fees": (msg, args) => getComposerFees(msg, args),
+  "credits": (msg, args) => getBotCredits(msg, args),
   "backlog": (msg, args) => msg.channel.send("There are currently 192 pieces of music backlogged in Utopia."),
-  "coffee": (msg, args) => msg.channel.send("☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️"),
+  "fees": (msg, args) => getComposerFees(msg, args),
+  "invite": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  //"latest_release": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  //"current_project": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  //"update_me": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  
+  // "coffee": (msg, args) => msg.channel.send("☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️"),
   'ping': (msg, args) => {
         if (args.length < 1) {
           msg.channel.send('pong!')
@@ -56,11 +60,19 @@ const COMMAND_LIST = {
           pingUser(msg, args);
         }
       },
-  "setup": (msg, args) => setupBot(msg, args),
-  "toggle_role": (msg, args) => toggleRole(msg, args),
-  "migrate_role": (msg, args) => migrateRole(msg, args),
-  "create_role": (msg, args) => createRole(msg,args),
-  "react_role": (msg, args) => reactRole(msg, args),
+
+  //"discography": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  //"albums": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+
+  //"clientele": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  //"supporters": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  //"workshop": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+
+  // "setup": (msg, args) => setupBot(msg, args),
+  // "toggle_role": (msg, args) => toggleRole(msg, args),
+  // "migrate_role": (msg, args) => migrateRole(msg, args),
+  // "create_role": (msg, args) => createRole(msg,args),
+  // "react_role": (msg, args) => reactRole(msg, args),
 
 }
 
@@ -70,14 +82,14 @@ client.on("messageDelete", (msg) => {
 
 client.on("messageCreate", (msg) => {
   console.log(msg.author.username+":",msg.content);
-  if (msg.content.toLowerCase().includes("jon")) {
-    msg.react("❤️");
+  if (msg.content.toLowerCase().includes("love")) {
+    msg.react("💛");
   }
-  if (msg.content.toLowerCase().includes("camiel")) {
-    msg.react("🏅");
+  if (msg.content.toLowerCase().includes("music")) {
+    msg.react("🎶");
   }
-  if (msg.content.toLowerCase().includes("dylan")) {
-    msg.react("🤖");
+  if (msg.content.toLowerCase().includes("utopia")) {
+    msg.react("♾");
   }
 
   if (msg.content === BOT_PREFIX) {

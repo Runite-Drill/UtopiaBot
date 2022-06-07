@@ -41,8 +41,13 @@ for (const file of eventFiles) {
 }
 
 const COMMAND_LIST = {
-  "": (msg, args) => msg.channel.send(`Are you trying to summon me? Try typing "${BOT_PREFIX} help" for a list of commands.\n☕️ Happy refuelling!`),
+  "": (msg, args) => msg.channel.send(`Are you trying to summon me? Try typing "${BOT_PREFIX} help" for a list of commands.\n🎵 Happy listening!`),
+  "credits": (msg, args) => getBotCredits(msg, args),
   "help": (msg, args) => getHelpInfo(msg, args),
+  "contact": (msg, args) => getComposerInfo(msg, args),
+  "invite": (msg, args) => msg.channel.send("Transcend to Utopia: https://discord.gg/SdQhfBM"),
+  "fees": (msg, args) => getComposerFees(msg, args),
+  "backlog": (msg, args) => msg.channel.send("There are currently 192 pieces of music backlogged in Utopia."),
   "coffee": (msg, args) => msg.channel.send("☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️☕️"),
   'ping': (msg, args) => {
         if (args.length < 1) {
@@ -64,7 +69,7 @@ client.on("messageDelete", (msg) => {
 });
 
 client.on("messageCreate", (msg) => {
-  console.log(msg.author.username);
+  console.log(msg.author.username+":",msg.content);
   if (msg.content.toLowerCase().includes("jon")) {
     msg.react("❤️");
   }
@@ -92,13 +97,13 @@ client.on("messageCreate", (msg) => {
       COMMAND_LIST[cmd.trim()](msg,args)
     } else {
       if (!COMMAND_LIST[cmd.trim().split(" ")[0]]) {
-        msg.channel.send(`Command "${cmd.trim()}" not recognised. Try typing "${BOT_PREFIX} help" for a list of commands.\n☕️ Happy refuelling!`);
+        msg.channel.send(`Command "${cmd.trim()}" not recognised. Try typing "${BOT_PREFIX} help" for a list of commands.\n🎵 Happy listening!`);
       } else if (args.length < 1) {
         let splitCmd = cmd.split(" ")
         let splitCmdReduced = splitCmd.splice(1)
         msg.channel.send(`Please remember to include a colon (:) after your command if you are passing any arguments.\ne.g. ${BOT_PREFIX} ${splitCmd[0]}: ${splitCmdReduced.join(" ")}`);
       } else {
-        msg.channel.send(`Command "${cmd.trim()}" not recognised. Try typing "${BOT_PREFIX} help" for a list of commands.\n☕️ Happy refuelling!`);
+        msg.channel.send(`Command "${cmd.trim()}" not recognised. Try typing "${BOT_PREFIX} help" for a list of commands.\n🎵 Happy listening!`);
       }
     }
   }
@@ -151,6 +156,41 @@ function toggleRole(msg, args) {
     }
 
   })
+}
+
+function getBotCredits(msg, args) {
+  msg.channel.send("This bot is developed and maintained by Runite Drill.");
+}
+
+function getComposerInfo(msg, args) {
+  msg.channel.send(
+    "🎶 UTOPIA MUSIC 🎶\n" +
+    "Indie composer for Paradox Interactive games.\n" +
+    "\n" +
+    "Listen 🎧\n" +
+    "Spotify: https://sptfy.com/utopia\n" +
+    "Youtube: https://www.youtube.com/c/UtopiaMusic\n" +
+    "Discord: https://discord.gg/SdQhfBM\n" +
+    "\n" + 
+    "📨 utopiamusicnz@gmail.com\n" +
+    "🌐 https://www.utopiamusic.net/utopia\n" +
+    "\n" + 
+    "©️ All music is copyright Utopia Music.\n"
+  
+  );
+}
+
+function getComposerFees(msg, args) {
+  msg.channel.send(
+    "💵 Utopia Music current commissioning fees 💵\n" +
+    "\n" +
+    "Non-profit community rate: $100/piece\n" +
+    "Commercial rate: $500/minute\n" +
+    "\n" + 
+    "All prices are indicative only and are in USD. The actual price will be confirmed based on the specific needs of your commission.\n" +
+    "\n" + 
+    "▶️ To request a commission please email utopiamusicnz@gmail.com or contact <@310249685736488960>.\n"
+  );
 }
 
 function migrateRole(msg, args) {
@@ -303,6 +343,8 @@ function pingUser(msg, args) {
       return msg.guild.members.cache.find(u => u.user.username.toLowerCase() === msg.author.username.toLowerCase(0))
     } else if (p.toLowerCase()=="everyone") {
       return msg.guild.roles.cache.find(r => r.name.toLowerCase() === "@everyone")
+    } else if (p.toLowerCase()=="utopia") {
+      return msg.guild.members.cache.find(u => u.user.username.toLowerCase() === "runite drill")
     } else {
       let id = msg.guild.members.cache.find(u => u.user.username.toLowerCase() === p.toLowerCase())
       if (typeof id == 'undefined') {
@@ -324,7 +366,7 @@ function pingUser(msg, args) {
     for (i in userIDs) {
       let id = userIDs[i]
       if (typeof id != 'undefined') {
-        pingMsg+=` ${id}`
+        pingMsg+=` ${id}.`
       } else {
         msg.channel.send(`User/role ${pingArgs[i]} not found.`)
       }
